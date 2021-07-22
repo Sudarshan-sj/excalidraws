@@ -11,7 +11,8 @@
 - Then go back to main directory - cd ..
 - Go to server directory - cd server
 - Install packages - npm install
-- Starting the server - node index.js
+- Go to main directory - cd ..
+- Starting the server - npm start
 
 - Then go to http://localhost:3000 to see the webpage
 - To see the images saved in the server go to http://localhost:3000/savedimages
