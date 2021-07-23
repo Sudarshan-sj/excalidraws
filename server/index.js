@@ -16,15 +16,17 @@ httpServer.listen(PORT, () => {
 });
 console.log(__dirname);
 app.use(bodyParser.json());
+global.images = []
 // put the HTML file containing your form in a directory named "public" (relative to where this script is located)
 app.use(express.static(path.join(__dirname, "build")));
- app.use(express.static(__dirname+'/uploads'));
+app.use("/savedimages", express.static(path.join(__dirname, "public")));
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, 'build',"/index.html")));
 app.post("/upload",(req,res)=>{
     console.log(req.body)
+    global.images.push(`out${req.body.counter}.png`)
     var base64Data = req.body.dataURL.replace(/^data:image\/png;base64,/, "");
-    require("fs").writeFile(`./uploads/out${req.body.counter}.png`, base64Data, 'base64', function(err) {
+    require("fs").writeFile(`./public/out${req.body.counter}.png`, base64Data, 'base64', function(err) {
     console.log(err);
 });
 });
-app.get("/savedimages",(req,res)=>res.sendFile(path.join(__dirname, 'build',"/savedimages.html")));
+app.get("/savedimages",(req,res)=>res.sendFile(path.join(__dirname, 'public',"/savedimages.html")));
